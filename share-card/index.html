@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABNB Share Card</title>
+<style>
+  :root { --bg:#0a0a0a; --steel:#c0c0c0; --accent:#ff3b00; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--steel); font-family:'Inter',system-ui,sans-serif; padding:24px; display:flex; flex-direction:column; align-items:center; }
+  h1 { font-size:1.3rem; letter-spacing:.05em; margin-bottom:20px; }
+  .card { width:400px; aspect-ratio:1; background:linear-gradient(135deg,#0a0a0a,#1a0a05); border:1px solid #222; border-radius:16px; padding:32px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+  .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--accent); }
+  .logo { font-size:1.1rem; font-weight:800; letter-spacing:.15em; color:#fff; }
+  .logo span { color:var(--accent); }
+  .verse { font-size:1rem; color:#c0c0c0; line-height:1.7; font-style:italic; }
+  .scores { display:flex; gap:20px; }
+  .scores div { text-align:center; }
+  .scores .n { font-size:1.8rem; font-weight:700; color:#fff; }
+  .scores .l { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; color:#666; }
+  .foot { font-size:.7rem; color:#444; letter-spacing:.1em; }
+  .btn { background:var(--accent); color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; margin-top:16px; }
+</style>
+</head>
+<body>
+  <h1>SHARE CARD</h1>
+  <div class="card">
+    <div class="logo">ALL BARS <span>NO BRAKES</span></div>
+    <div class="verse">"I came to claim my name\nNo shame in the game\nI flame the frame"</div>
+    <div class="scores">
+      <div><div class="n">82</div><div class="l">Tech</div></div>
+      <div><div class="n">71</div><div class="l">Impact</div></div>
+      <div><div class="n">68</div><div class="l">GOAT</div></div>
+    </div>
+    <div class="foot">NEWEN · the lyricism gym</div>
+  </div>
+  <button class="btn" onclick="alert('Downloads PNG — wired in production')">DOWNLOAD PNG</button>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABNB Battle Bracket</title>
+<style>
+  :root { --bg:#0a0a0a; --steel:#c0c0c0; --accent:#ff3b00; --panel:#141414; --green:#2ecc71; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--steel); font-family:'Inter',system-ui,sans-serif; padding:24px; }
+  h1 { font-size:1.3rem; letter-spacing:.05em; margin-bottom:4px; }
+  .sub { color:#666; font-size:.8rem; margin-bottom:20px; }
+  .bracket { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .match { background:var(--panel); border:1px solid #222; border-radius:10px; padding:12px; }
+  .match .r { display:flex; justify-content:space-between; padding:6px 0; font-size:.85rem; cursor:pointer; border-radius:6px; padding:6px 8px; }
+  .match .r:hover { background:#1a1a1a; }
+  .match .r.win { color:var(--green); font-weight:600; }
+  .match .r .sc { color:#555; font-size:.75rem; }
+  .round-label { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; color:#555; margin-bottom:6px; text-align:center; }
+  .champ { text-align:center; margin-top:20px; font-size:1.2rem; color:#fff; }
+</style>
+</head>
+<body>
+  <h1>BATTLE BRACKET</h1>
+  <div class="sub">16-bar timer · scoreboard · two opponents trading multis</div>
+  <div style="display:flex;gap:24px;flex-wrap:wrap" id="br"></div>
+  <div class="champ" id="champ"></div>
+<script>
+const NAMES=['Pharoahe','Joyner','Tech N9ne','Royce','Black Thought','Inspectah','Method Man','Ghostface'];
+let bracket=NAMES.map((n,i)=>({n,s:Math.floor(70+Math.random()*25),w:false}));
+function render(){
+  const br=document.getElementById('br');
+  let html='';
+  const rounds=[['ROUND OF 8',8],['QUARTER',4],['SEMI',2],['FINAL',1]];
+  let cur=bracket;
+  rounds.forEach(([label,count])=>{
+    html+=`<div><div class="round-label">${label}</div>`;
+    for(let i=0;i<count;i++){
+      const a=cur[i*2], b=cur[i*2+1];
+      if(!a||!b){ html+='<div class="match"><div class="r">TBD</div></div>'; continue; }
+      const aw=a.s>=b.s;
+      html+=`<div class="match"><div class="r ${aw?'win':''}" onclick="vote(0,${i})">${a.n} <span class="sc">${a.s}</span></div><div class="r ${!aw?'win':''}" onclick="vote(1,${i})">${b.n} <span class="sc">${b.s}</span></div></div>`;
+    }
+    html+='</div>';
+    cur=cur.filter((x,i)=>i%2===0).map((x,i)=>{const o=cur[i*2+1];return x.s>=o.s?x:o;});
+  });
+  br.innerHTML=html;
+  if(bracket.length===1) document.getElementById('champ').textContent='🏆 '+bracket[0].n+' takes the bracket';
+}
+function vote(side,idx){
+  // nudge scores slightly for engagement
+  const a=bracket[idx*2], b=bracket[idx*2+1];
+  if(side===0) a.s+=Math.floor(Math.random()*5); else b.s+=Math.floor(Math.random()*5);
+  render();
+}
+render();
+</script>
+</body>
+</html>

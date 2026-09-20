@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABNB Take Vault</title>
+<style>
+  :root { --bg:#0a0a0a; --steel:#c0c0c0; --accent:#ff3b00; --panel:#141414; --green:#2ecc71; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--steel); font-family:'Inter',system-ui,sans-serif; padding:24px; }
+  h1 { font-size:1.3rem; letter-spacing:.05em; margin-bottom:4px; }
+  .sub { color:#666; font-size:.8rem; margin-bottom:20px; }
+  .take { background:var(--panel); border:1px solid #222; border-radius:12px; padding:16px; margin-bottom:12px; }
+  .take .meta { display:flex; justify-content:space-between; font-size:.75rem; color:#666; margin-bottom:8px; }
+  .take .bars { font-size:.9rem; color:#c0c0c0; line-height:1.6; white-space:pre-wrap; }
+  .take .scores { display:flex; gap:16px; margin-top:10px; font-size:.8rem; }
+  .take .scores span b { color:#fff; }
+  .tag { font-size:.6rem; padding:2px 6px; border-radius:4px; background:#1c1c1c; color:#888; }
+  .empty { color:#444; font-size:.85rem; text-align:center; padding:40px; }
+</style>
+</head>
+<body>
+  <h1>TAKE VAULT</h1>
+  <div class="sub">Saved takes · track growth across sessions</div>
+  <div id="vault"></div>
+<script>
+const TAKES=[
+  {date:'Sep 18', bars:'I came to claim my name\nNo shame in the game\nI flame the frame', tech:82, impact:71, goat:68, tag:'punch-in'},
+  {date:'Sep 15', bars:'Struggle in the muscle\nPuzzle through the hustle', tech:74, impact:65, goat:60, tag:'drill'},
+  {date:'Sep 12', bars:'Determine to return\nConcern for what we earn', tech:88, impact:79, goat:75, tag:'multi'},
+  {date:'Sep 8', bars:'Fast pocket, tight stress\nNo rest for the best', tech:79, impact:70, goat:66, tag:'cadence'},
+];
+const v=document.getElementById('vault');
+if(!TAKES.length){ v.innerHTML='<div class="empty">No takes saved yet. Paste bars in the gym and hit SAVE.</div>'; }
+else {
+  v.innerHTML=TAKES.map(t=>`<div class="take"><div class="meta"><span>${t.date}</span><span class="tag">${t.tag}</span></div><div class="bars">${t.bars}</div><div class="scores"><span>Tech <b>${t.tech}</b></span><span>Impact <b>${t.impact}</b></span><span>GOAT <b>${t.goat}</b></span></div></div>`).join('');
+}
+</script>
+</body>
+</html>
